@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, Image, Text } from 'react-native';
 
 import logoImg from '../../assets/images/logo/logo.png';
 
+import { TodoContext } from '../../contexts/todo-context';
+
 import { styles } from './styles';
 
-interface HeaderProps {
-  tasksCounter: number;
-}
+export const Header = () => {
+  const { tasks } = useContext(TodoContext);
 
-export const Header = ({ tasksCounter }: HeaderProps) => {
-  //TODO render 'tarefa' if tasksCounter equals 1, otherwise render 'tarefas'
-  const tasksCounterText = tasksCounter === 1 ? 'tarefa' : 'tarefas';
+  const tasksCounterText = tasks.length === 1 ? 'tarefa' : 'tarefas';
 
   return (
     <View style={styles.container}>
@@ -20,7 +19,7 @@ export const Header = ({ tasksCounter }: HeaderProps) => {
       <View style={styles.tasks}>
         <Text style={styles.tasksCounter}>Você tem </Text>
         <Text style={styles.tasksCounterBold}>
-          {tasksCounter} {tasksCounterText}
+          {tasks.length} {tasksCounterText}
         </Text>
       </View>
     </View>
