@@ -19,7 +19,7 @@ import { TodoContext } from '../../contexts/todo-context';
 import { styles } from './styles';
 
 export function TasksList() {
-  const { tasks, taskIsBeingEdited, handleToggleTaskDone, taskDeleteAlert } =
+  const { tasks, taskIsBeingEdited, handleToggleTaskDone, handleRemoveTask } =
     useContext(TodoContext);
 
   return (
@@ -66,7 +66,7 @@ export function TasksList() {
               <TouchableOpacity
                 activeOpacity={0.7}
                 style={styles.taskDelete}
-                onPress={() => taskDeleteAlert(item.id)}
+                onPress={() => handleRemoveTask(item.id)}
               >
                 <Image source={trashIcon} />
               </TouchableOpacity>

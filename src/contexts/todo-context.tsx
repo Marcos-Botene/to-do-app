@@ -9,7 +9,6 @@ interface TodoContextData {
   handleAddNewTask: () => void;
   handleToggleTaskDone: (id: number) => void;
   handleRemoveTask: (id: number) => void;
-  taskDeleteAlert: (id: number) => void;
 }
 
 interface Task {
@@ -59,10 +58,6 @@ export const TodoProvider: React.FC = ({ children }) => {
   };
 
   const handleRemoveTask = (id: number) => {
-    setTasks(oldState => oldState.filter(task => task.id !== id));
-  };
-
-  const taskDeleteAlert = (id: number) => {
     Alert.alert(
       'Remover item',
       'Tem certeza que você deseja remover esse item?',
@@ -73,7 +68,9 @@ export const TodoProvider: React.FC = ({ children }) => {
         },
         {
           text: 'SIM',
-          onPress: () => handleRemoveTask(id),
+          onPress: () => {
+            setTasks(oldState => oldState.filter(task => task.id !== id));
+          },
         },
       ]
     );
@@ -89,7 +86,6 @@ export const TodoProvider: React.FC = ({ children }) => {
         handleAddNewTask,
         handleToggleTaskDone,
         handleRemoveTask,
-        taskDeleteAlert,
       }}
     >
       {children}
