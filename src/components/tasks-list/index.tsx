@@ -1,8 +1,16 @@
 import React, { useContext } from 'react';
-import { FlatList, Image, TouchableOpacity, View, Text } from 'react-native';
+import {
+  FlatList,
+  Image,
+  TouchableOpacity,
+  View,
+  TextInput,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 import trashIcon from '../../assets/icons/trash/trash.png';
+import penIcon from '../../assets/icons/pen/pen.png';
+import xIcon from '../../assets/icons/x/x.png';
 
 import { ItemWrapper } from '../../components';
 
@@ -11,7 +19,7 @@ import { TodoContext } from '../../contexts/todo-context';
 import { styles } from './styles';
 
 export function TasksList() {
-  const { tasks, handleToggleTaskDone, handleRemoveTask } =
+  const { tasks, taskIsBeingEdited, handleToggleTaskDone, taskDeleteAlert } =
     useContext(TodoContext);
 
   return (
@@ -25,31 +33,44 @@ export function TasksList() {
           <ItemWrapper index={index}>
             <>
               <TouchableOpacity
-                testID={`button-${index}`}
                 activeOpacity={0.7}
                 style={styles.taskButton}
                 onPress={() => handleToggleTaskDone(item.id)}
               >
                 <View
-                  testID={`marker-${index}`}
                   style={item.done ? styles.taskMarkerDone : styles.taskMarker}
                 >
                   {item.done && <Icon name='check' size={12} color='#FFF' />}
                 </View>
 
-                <Text style={item.done ? styles.taskTextDone : styles.taskText}>
+                <TextInput
+                  style={item.done ? styles.taskTextDone : styles.taskText}
+                >
                   {item.title}
-                </Text>
+                </TextInput>
               </TouchableOpacity>
             </>
 
-            <TouchableOpacity
-              testID={`trash-${index}`}
-              style={{ paddingHorizontal: 24 }}
-              onPress={() => handleRemoveTask(item.id)}
-            >
-              <Image source={trashIcon} />
-            </TouchableOpacity>
+            <View style={styles.taskOptions}>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={taskIsBeingEdited ? styles.taskCancel : styles.taskEdit}
+                onPress={() => {}}
+              >
+                {taskIsBeingEdited ? (
+                  <Image source={xIcon} />
+                ) : (
+                  <Image source={penIcon} />
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity
+                activeOpacity={0.7}
+                style={styles.taskDelete}
+                onPress={() => taskDeleteAlert(item.id)}
+              >
+                <Image source={trashIcon} />
+              </TouchableOpacity>
+            </View>
           </ItemWrapper>
         );
       }}

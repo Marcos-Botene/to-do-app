@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
@@ -23,7 +23,6 @@ export const TodoInput = () => {
         onSubmitEditing={handleAddNewTask}
       />
       <TouchableOpacity
-        testID='add-new-task-button'
         activeOpacity={0.7}
         style={styles.addButton}
         onPress={handleAddNewTask}

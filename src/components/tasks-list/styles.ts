@@ -38,4 +38,21 @@ export const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
     fontFamily: 'Inter-Medium',
   },
+  taskOptions: {
+    flexDirection: 'row',
+    paddingRight: 12,
+  },
+  taskDelete: {
+    borderLeftWidth: 1,
+    borderLeftColor: '#C4C4C4',
+    paddingHorizontal: 12,
+  },
+  taskEdit: {
+    paddingHorizontal: 12,
+  },
+  taskCancel: {
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
