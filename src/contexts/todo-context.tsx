@@ -27,12 +27,19 @@ export const TodoProvider: React.FC = ({ children }) => {
   const [taskName, setTaskName] = useState<string>('');
   const [taskIsBeingEdited, setTaskIsBeingEdited] = useState<boolean>(false);
 
-  const handleTaskName = (taskName: string) => {
-    if (!taskName) return;
-    setTaskName(taskName);
-  };
+  const handleTaskName = (taskName: string) => setTaskName(taskName);
 
   const handleAddNewTask = () => {
+    if (!taskName) return;
+
+    if (tasks.find(task => task.title === taskName)) {
+      Alert.alert(
+        'Task já cadastrada',
+        'Você não pode cadastrar uma task com o mesmo nome'
+      );
+      return;
+    }
+
     const newTask: Task = {
       id: new Date().getTime(),
       title: taskName,
