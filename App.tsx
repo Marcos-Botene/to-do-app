@@ -1,19 +1,19 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 
-import { TodoProvider } from './src/contexts/todo-context';
+import { TaskProvider } from './src/contexts/task-context';
 
 import { Home } from './src/pages/home';
 
 export default function App() {
   return (
-    <TodoProvider>
+    <TaskProvider>
       <StatusBar
         barStyle='light-content'
         translucent
         backgroundColor='transparent'
       />
       <Home />
-    </TodoProvider>
+    </TaskProvider>
   );
 }

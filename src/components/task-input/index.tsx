@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import { TextInput, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
-import { TodoContext } from '../../contexts/todo-context';
+import { TaskContext } from '../../contexts/task-context';
 
 import { styles } from './styles';
 
-export const TodoInput = () => {
-  const { taskName, handleTaskName, handleAddNewTask } =
-    useContext(TodoContext);
+export const TaskInput = () => {
+  const { taskTitle, handleTaskTitle, handleAddNewTask } =
+    useContext(TaskContext);
 
   return (
     <View style={styles.inputContainer}>
@@ -18,8 +18,8 @@ export const TodoInput = () => {
         placeholderTextColor='#B2B2B2'
         returnKeyType='send'
         selectionColor='#666666'
-        value={taskName}
-        onChangeText={handleTaskName}
+        value={taskTitle}
+        onChangeText={handleTaskTitle}
         onSubmitEditing={handleAddNewTask}
       />
       <TouchableOpacity

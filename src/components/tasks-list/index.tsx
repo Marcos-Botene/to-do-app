@@ -14,13 +14,13 @@ import xIcon from '../../assets/icons/x/x.png';
 
 import { ItemWrapper } from '../../components';
 
-import { TodoContext } from '../../contexts/todo-context';
+import { TaskContext } from '../../contexts/task-context';
 
 import { styles } from './styles';
 
 export function TasksList() {
   const { tasks, taskIsBeingEdited, handleToggleTaskDone, handleRemoveTask } =
-    useContext(TodoContext);
+    useContext(TaskContext);
 
   return (
     <FlatList

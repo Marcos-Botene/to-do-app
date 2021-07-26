@@ -3,12 +3,12 @@ import { View, Image, Text } from 'react-native';
 
 import logoImg from '../../assets/images/logo/logo.png';
 
-import { TodoContext } from '../../contexts/todo-context';
+import { TaskContext } from '../../contexts/task-context';
 
 import { styles } from './styles';
 
 export const Header = () => {
-  const { tasks } = useContext(TodoContext);
+  const { tasks } = useContext(TaskContext);
 
   const tasksCounterText = tasks.length === 1 ? 'tarefa' : 'tarefas';
 

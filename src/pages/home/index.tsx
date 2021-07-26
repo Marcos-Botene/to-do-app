@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { Header, TodoInput, TasksList } from '../../components';
+import { Header, TaskInput, TasksList } from '../../components';
 
 import { styles } from './styles';
 
@@ -10,7 +10,7 @@ export const Home = () => {
     <View style={styles.container}>
       <Header />
 
-      <TodoInput />
+      <TaskInput />
 
       <TasksList />
     </View>
