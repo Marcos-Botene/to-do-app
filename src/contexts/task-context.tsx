@@ -10,12 +10,16 @@ interface Task {
 interface TaskContextData {
   tasks: Task[];
   taskTitle: string;
-  taskIsBeingEdited: boolean;
+  taskIsBeingEditing: boolean;
+  newTaskTitle: string;
   handleTaskTitle: (taskTitle: string) => void;
   handleAddNewTask: () => void;
   handleToggleTaskDone: (taskId: number) => void;
   handleRemoveTask: (taskId: number) => void;
   handleEditTask: (taskId: number, newTaskTitle: string) => void;
+  handleNewTaskTitle: (newTaskTitle: string) => void;
+  handleTaskIsBeingEdited: () => void;
+  handleCancelTaskEdition: () => void;
 }
 
 export const TaskContext = createContext<TaskContextData>(
@@ -25,7 +29,8 @@ export const TaskContext = createContext<TaskContextData>(
 export const TaskProvider: React.FC = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskTitle, setTaskTitle] = useState<string>('');
-  const [taskIsBeingEdited, setTaskIsBeingEdited] = useState<boolean>(false);
+  const [taskIsBeingEditing, setTaskIsBeingEdited] = useState<boolean>(false);
+  const [newTaskTitle, setNewTaskTitle] = useState<string>(taskTitle);
 
   const handleTaskTitle = (taskTitle: string) => setTaskTitle(taskTitle);
 
@@ -83,6 +88,18 @@ export const TaskProvider: React.FC = ({ children }) => {
     );
 
     setTasks(updatedTask);
+    setTaskIsBeingEdited(false);
+  };
+
+  const handleNewTaskTitle = (newTaskTitle: string) => {
+    setNewTaskTitle(newTaskTitle);
+  };
+
+  const handleTaskIsBeingEdited = () => setTaskIsBeingEdited(true);
+
+  const handleCancelTaskEdition = () => {
+    setNewTaskTitle(taskTitle);
+    setTaskIsBeingEdited(false);
   };
 
   return (
@@ -90,12 +107,16 @@ export const TaskProvider: React.FC = ({ children }) => {
       value={{
         tasks,
         taskTitle,
-        taskIsBeingEdited,
+        taskIsBeingEditing,
+        newTaskTitle,
         handleTaskTitle,
         handleAddNewTask,
         handleToggleTaskDone,
         handleRemoveTask,
         handleEditTask,
+        handleNewTaskTitle,
+        handleTaskIsBeingEdited,
+        handleCancelTaskEdition,
       }}
     >
       {children}

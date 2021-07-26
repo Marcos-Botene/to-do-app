@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
   },
   taskOptions: {
     flexDirection: 'row',
-    paddingRight: 12,
+    padding: 12,
   },
   taskDelete: {
     borderLeftWidth: 1,
@@ -51,8 +51,8 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   taskCancel: {
-    paddingHorizontal: 16,
-    alignItems: 'center',
+    paddingHorizontal: 12,
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });
