@@ -10,6 +10,7 @@ interface Task {
 interface EditTask {
   taskId: number;
   newTaskTitle: string;
+  taskIsBeingEditing: () => void;
 }
 
 interface TaskContextData {
@@ -40,6 +41,7 @@ export const TaskProvider: React.FC = ({ children }) => {
         'Task já cadastrada',
         'Você não pode cadastrar uma task com o mesmo nome'
       );
+      setTaskTitle('');
       return;
     }
 
@@ -80,12 +82,17 @@ export const TaskProvider: React.FC = ({ children }) => {
     );
   };
 
-  const handleEditTask = ({ taskId, newTaskTitle }: EditTask) => {
+  const handleEditTask = ({
+    taskId,
+    newTaskTitle,
+    taskIsBeingEditing,
+  }: EditTask) => {
     const updatedTask = tasks.map(task =>
       task.id === taskId ? { ...task, title: newTaskTitle } : task
     );
 
     setTasks(updatedTask);
+    taskIsBeingEditing();
   };
 
   return (

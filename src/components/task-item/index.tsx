@@ -27,11 +27,9 @@ export const TaskItem = ({ item }: TaskItemProps) => {
   const [newTaskTitle, setNewTaskTitle] = useState<string>(item.title);
   const [taskIsBeingEditing, setTaskIsBeingEdited] = useState<boolean>(false);
 
-  console.log(taskIsBeingEditing);
-
   const textInputRef = useRef<TextInput>(null);
 
-  const handleTaskIsBeingEdited = () => setTaskIsBeingEdited(true);
+  const handleTaskIsBeingEdited = () => setTaskIsBeingEdited(value => !value);
 
   const handleCancelTaskEdition = () => {
     setNewTaskTitle(item.title);
@@ -68,6 +66,7 @@ export const TaskItem = ({ item }: TaskItemProps) => {
               handleEditTask({
                 taskId: item.id,
                 newTaskTitle: newTaskTitle,
+                taskIsBeingEditing: handleTaskIsBeingEdited,
               })
             }
             ref={textInputRef}
