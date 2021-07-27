@@ -51,7 +51,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   taskCancel: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 16,
     justifyContent: 'center',
     alignItems: 'center',
   },

@@ -7,19 +7,19 @@ interface Task {
   done: boolean;
 }
 
+interface EditTask {
+  taskId: number;
+  newTaskTitle: string;
+}
+
 interface TaskContextData {
   tasks: Task[];
   taskTitle: string;
-  taskIsBeingEditing: boolean;
-  newTaskTitle: string;
   handleTaskTitle: (taskTitle: string) => void;
   handleAddNewTask: () => void;
   handleToggleTaskDone: (taskId: number) => void;
   handleRemoveTask: (taskId: number) => void;
-  handleEditTask: (taskId: number, newTaskTitle: string) => void;
-  handleNewTaskTitle: (newTaskTitle: string) => void;
-  handleTaskIsBeingEdited: () => void;
-  handleCancelTaskEdition: () => void;
+  handleEditTask: ({ taskId, newTaskTitle }: EditTask) => void;
 }
 
 export const TaskContext = createContext<TaskContextData>(
@@ -29,8 +29,6 @@ export const TaskContext = createContext<TaskContextData>(
 export const TaskProvider: React.FC = ({ children }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [taskTitle, setTaskTitle] = useState<string>('');
-  const [taskIsBeingEditing, setTaskIsBeingEdited] = useState<boolean>(false);
-  const [newTaskTitle, setNewTaskTitle] = useState<string>(taskTitle);
 
   const handleTaskTitle = (taskTitle: string) => setTaskTitle(taskTitle);
 
@@ -82,24 +80,12 @@ export const TaskProvider: React.FC = ({ children }) => {
     );
   };
 
-  const handleEditTask = (taskId: number, newTaskTitle: string) => {
+  const handleEditTask = ({ taskId, newTaskTitle }: EditTask) => {
     const updatedTask = tasks.map(task =>
       task.id === taskId ? { ...task, title: newTaskTitle } : task
     );
 
     setTasks(updatedTask);
-    setTaskIsBeingEdited(false);
-  };
-
-  const handleNewTaskTitle = (newTaskTitle: string) => {
-    setNewTaskTitle(newTaskTitle);
-  };
-
-  const handleTaskIsBeingEdited = () => setTaskIsBeingEdited(true);
-
-  const handleCancelTaskEdition = () => {
-    setNewTaskTitle(taskTitle);
-    setTaskIsBeingEdited(false);
   };
 
   return (
@@ -107,16 +93,11 @@ export const TaskProvider: React.FC = ({ children }) => {
       value={{
         tasks,
         taskTitle,
-        taskIsBeingEditing,
-        newTaskTitle,
         handleTaskTitle,
         handleAddNewTask,
         handleToggleTaskDone,
         handleRemoveTask,
         handleEditTask,
-        handleNewTaskTitle,
-        handleTaskIsBeingEdited,
-        handleCancelTaskEdition,
       }}
     >
       {children}

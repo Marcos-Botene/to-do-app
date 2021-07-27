@@ -7,7 +7,7 @@ import { TaskContext } from '../../contexts/task-context';
 
 import { TaskItem } from '../task-item';
 
-export function TasksList() {
+export const TasksList = () => {
   const { tasks } = useContext(TaskContext);
 
   return (
@@ -19,7 +19,7 @@ export function TasksList() {
       renderItem={({ item, index }) => {
         return (
           <ItemWrapper index={index}>
-            <TaskItem key={item.id} item={item} />
+            <TaskItem key={String(item.id)} item={item} />
           </ItemWrapper>
         );
       }}
@@ -28,4 +28,4 @@ export function TasksList() {
       }}
     />
   );
-}
+};

@@ -21,22 +21,22 @@ interface TaskItemProps {
 }
 
 export const TaskItem = ({ item }: TaskItemProps) => {
-  const {
-    taskTitle,
-    newTaskTitle,
-    taskIsBeingEditing,
-    handleToggleTaskDone,
-    handleRemoveTask,
-    handleEditTask,
-    handleNewTaskTitle,
-    handleTaskIsBeingEdited,
-    handleCancelTaskEdition,
-  } = useContext(TaskContext);
+  const { handleToggleTaskDone, handleRemoveTask, handleEditTask } =
+    useContext(TaskContext);
 
-  const [addNewTaskTitle, setAddNewTaskTitle] = useState<string>(taskTitle);
-  console.log(addNewTaskTitle);
+  const [newTaskTitle, setNewTaskTitle] = useState<string>(item.title);
+  const [taskIsBeingEditing, setTaskIsBeingEdited] = useState<boolean>(false);
+
+  console.log(taskIsBeingEditing);
 
   const textInputRef = useRef<TextInput>(null);
+
+  const handleTaskIsBeingEdited = () => setTaskIsBeingEdited(true);
+
+  const handleCancelTaskEdition = () => {
+    setNewTaskTitle(item.title);
+    setTaskIsBeingEdited(false);
+  };
 
   useEffect(() => {
     if (textInputRef.current) {
@@ -61,10 +61,15 @@ export const TaskItem = ({ item }: TaskItemProps) => {
           </View>
 
           <TextInput
-            value={addNewTaskTitle}
-            onChangeText={setAddNewTaskTitle}
+            value={newTaskTitle}
+            onChangeText={setNewTaskTitle}
             editable={taskIsBeingEditing}
-            onSubmitEditing={() => handleEditTask(item.id, addNewTaskTitle)}
+            onSubmitEditing={() =>
+              handleEditTask({
+                taskId: item.id,
+                newTaskTitle: newTaskTitle,
+              })
+            }
             ref={textInputRef}
             style={item.done ? styles.taskTextDone : styles.taskText}
           />
